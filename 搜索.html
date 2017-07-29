@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>搜索</title>
+		<style>
+			li{list-style: none;}
+		    .box{transition: all 1s;}
+			.box.ng-enter{opacity: 0;}
+			.box.ng-enter-active{opacity: 1;}
+			.box.ng-leave{display: none;}			
+			/*设置延迟效果*/
+			.box.ng-enter-stagger{animation-delay: 500ms;}
+		</style>	
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script type="text/javascript" src="js/angular-animate.min.js" ></script>
+		<script type="text/javascript">
+		var m1 =angular.module("app",['ngAnimate']);
+		m1.controller("demo",function($scope,$http){
+			
+			$scope.click=function(){                     
+				$http({
+					method:'jsonp',
+					url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+$scope.text+'&cb=JSON_CALLBACK',					
+				}).success(function(data){
+					console.log(data)
+					$scope.dataList = data.s;
+				})
+		    }
+		
+		})
+		
+ 		
+	    </script>
+	</head>
+	<body>
+		<h2>百度搜索</h2>
+		<div ng-app="app" ng-controller="demo">
+		    <input type="text" ng-keyup="click()" ng-model="text"/>
+		    <input type="button" ng-keyup="click()" value="搜索"/>
+		    <ul ng-repeat="data in dataList">
+				<li ng-class="{box:true}">{{data}}</li>
+			</ul>
+		</div>
+	</body>
+</html>

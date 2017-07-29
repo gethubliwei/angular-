@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>详情页</title>
+		<style>
+			.box{width: 200px;height: 200px;background: red;transition: all 1s}
+			.box.ng-enter{opacity: 0;}
+			.box.ng-enter-active{opacity: 1;}
+			.box.ng-leave{opacity: 0;}
+			.box.ng-leave-active{opacity: 1;}
+			
+			
+		</style>
+		<script type="text/javascript" src="js/angular.min.js" ></script>	   
+	    <script type="text/javascript" src="js/angular-animate.min.js" ></script>
+	    <script type="text/javascript">
+	    	var m1 = angular.module("app",["ngAnimate"]);
+	    	    
+	        m1.controller("demo",function($scope){
+		        $scope.btnOpen = true;
+	        
+	        })
+	    </script>
+	</head>
+	<body>
+		<h2>angular 中的动画效果设置</h2>
+		<p>需要引入插件animate</p>
+		<p>ng-if:块级元素的销毁与添加</p>
+		<div ng-app="app" ng-controller="demo" >
+			<input type="checkbox" ng-model="btnOpen" />
+			<div ng-class="{box:true}" ng-if="btnOpen"></div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			a{display:inline-block;width: 50px; height: 20px; background: red;
+			 color: #fff;text-align: center;cursor: pointer;}
+			.box{transition: all 1s;position: absolute;color: orange;}
+			.box.ng-enter{opacity: 0;color: #ccc;}
+			.box.ng-enter-active{opacity: 1; color: orange;}
+			.box.ng-leave{opacity: 1;color: orange;}
+			.box.ng-leave-active{opacity: 0;color: #ccc;}
+		</style>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script type="text/javascript" src="js/angular-route.min.js" ></script>
+		<script type="text/javascript" src="js/angular-animate.min.js" ></script>
+		<script type="text/javascript">
+		var m1 = angular.module("app",["ngAnimate","ngRoute"]);	
+	    	m1.config(["$routeProvider",function($routeProvider){
+	    		
+	    		$routeProvider.when('/aaa',{
+		        	template:"<h2>来呀,快活呀！  </h2>",
+		        	
+		        }).when('/bbb',{
+		        	//templateUrl:'temp/test.html'
+		        	template:"<h2>反正有 </h2>",
+		        	
+		        }).when('/ccc',{
+		        	template:"<h2>大把时光... </h2>",
+		        	
+		        }).otherwise({
+		        		redirectTo:'/aaa'
+		        })
+	    		
+	    		
+	    	}])
+	    		
+	         m1.controller("demo",function($scope,$location,$routeParams){
+		         $scope.$location = $location;
+		        
+	        })
+	    </script>
+	</head>
+	<body>
+		<h2>页面间路由传参 添加动画效果</h2>
+		<div ng-app="app" ng-controller="demo" >
+			<a ng-click="$location.path('aaa')">首页</a>
+			<a ng-click="$location.path('bbb')">列表</a>
+			<a ng-click="$location.path('ccc')">详情</a>
+			<div ng-view ng-class="{box:true}" ></div>
+		</div>
+	</body>
+</html>

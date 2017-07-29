@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>分页</title>
+		<style>
+			
+		</style>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+	    <script type="text/javascript" src="js/angular-route.min.js" ></script>
+	    <script type="text/javascript">
+	    	var m1 = angular.module("app",["ngRoute"]);	
+	    	m1.config(["$routeProvider",function($routeProvider){
+		        $routeProvider.when('/aaa',{
+		        	template:"<h2>欢迎来到主页  {{info}}</h2>",
+		        	controller:"demo"
+		        }).when('/bbb/:id/:class',{
+		        	//templateUrl:'temp/test.html'
+		        	template:"<h2>欢迎来到分页  {{info}}</h2>",
+		        	controller:"demo1"
+		        }).when('/ccc/:num',{
+		        	template:"<h2>欢迎来到详情页  {{info}}</h2>",
+		        	controller:"demo2"
+		        }).otherwise({
+		        		redirectTo:'/aaa'
+		        	})
+			}])
+	    	
+	
+	        m1.controller("demo",function($scope,$location,$routeParams){
+		         $scope.$location = $location;
+		         $scope.info="好便宜"
+	        })
+	        m1.controller("demo1",function($scope,$location,$routeParams){
+		         $scope.$location = $location;
+		         $scope.info="好划算"
+		         console.log($routeParams.id)
+		         console.log($routeParams.class)
+	        })
+	        m1.controller("demo2",function($scope,$location,$routeParams){
+		         $scope.$location = $location;
+		         $scope.info="好厉害"
+		         console.log($routeParams.num)
+	        })
+	    </script>
+	</head>
+	<body>
+		<h2>路由间传参</h2>
+		<div ng-app="app" ng-controller="demo" >
+			<a ng-click="$location.path('aaa')">首页</a>
+			<a ng-click="$location.path('bbb/123/789')">列表</a>
+			<a ng-click="$location.path('ccc/456')">详情</a>
+			<div ng-view></div>
+		</div>
+	</body>
+</html>

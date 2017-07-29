@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.box{width: 200px;height: 200px;background: red;transition: all 1s;position: absolute;}
+			/*去除隐藏开始时*/
+			.box.ng-hide-remove{opacity: 0;}
+			/*去除隐藏结束时*/
+			.box.ng-hide-remove-active{opacity: 1;}
+			/*增加隐藏开始时*/
+			.box.ng-hide-add{opacity: 1;}
+			/*增加隐藏结束时*/
+			.box.ng-hide-add-active{opacity: 0;}
+			
+		</style>
+		<script type="text/javascript" src="js/jquery-1.11.1.js" ></script>
+		<script type="text/javascript" src="js/angular.min.js" ></script>	   
+	    <script type="text/javascript" src="js/angular-animate.min.js" ></script>
+	    <script type="text/javascript">
+	    	var m1 = angular.module("app",["ngAnimate"]);	    	    
+	        m1.animation(".box",function(){
+	        	return{
+	        		enter:function(element,done){
+	        			$(element).css({
+	        				width:0,
+	        				height:0
+	        			})
+	        			$(element).animate({
+	        				width:200,
+	        				height:200
+	        			},500,done)
+	        		},
+	        		leave:function(element,done){
+	        			$(element).animate({
+	        				width:0,
+	        				height:0
+	        			},500,done)
+	        		}
+	        	}
+	        })
+	        m1.controller("demo",function($scope){
+	        	$scope.btnOpen = true;
+	        })
+	    </script>
+	</head>
+	<body>
+		<h2>angular 对显示隐藏元素  动画控制</h2>
+		<p>需要引入插件animate</p>		
+		<div ng-app="app" ng-controller="demo" >
+			<input type="checkbox" ng-model="btnOpen" />
+			<div ng-class="{box:true}" ng-if="btnOpen">
+				
+			</div>
+		</div>
+	</body>
+</html>
